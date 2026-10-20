@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>ConsentText</key>
+    <dict>
+        <key>default</key>
+        <string>
+            Profile 1: Certificate Revoke Blocker (Comprehensive)
+
+            Blocks all known Apple certificate revocation servers — OCSP, CRL, and certificate validation endpoints — to prevent enterprise certificate revokes. No ad blocking, no VPN bypass; pure revoke protection with minimal interference.
+
+            ⚠️ Warning: Blocking certificate revocation checks prevents your device from detecting revoked or compromised certificates. This is a security risk. Use at your own risk.
+
+            DNS Mobile Configuration By: Wen Zhang
+        </string>
+    </dict>
+
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://localhost.direct</string>
+                <key>SupplementalMatchDomains</key>
+                <array>
+                    <!-- Apple OCSP -->
+                    <string>ocsp.apple.com</string>
+                    <string>ocsp2.apple.com</string>
+                    <string>ocsp-lb.apple.com</string>
+                    <string>ocsp2-lb.apple.com</string>
+                    <string>ocsp2-lb.apple.com.akadns.net</string>
+                    <string>ocsp2.g.aaplimg.com</string>
+                    <!-- Apple CRL -->
+                    <string>crl.apple.com</string>
+                    <string>crl2.apple.com</string>
+                    <string>crl3.apple.com</string>
+                    <!-- Apple Certificate Validation -->
+                    <string>valid.apple.com</string>
+                    <string>certs.apple.com</string>
+                    <string>ppq.apple.com</string>
+                    <string>appattest.apple.com</string>
+                    <string>vpp.itunes.apple.com</string>
+                    <!-- Apple General Validation / Gatekeeper -->
+                    <string>gdmf.apple.com</string>
+                    <!-- DigiCert OCSP (Apple uses DigiCert for many certificates) -->
+                    <string>ocsp.digicert.com</string>
+                    <string>ocsp.digicert.cn</string>
+                    <!-- DigiCert CRL -->
+                    <string>crl.digicert.com</string>
+                    <string>crl2.digicert.com</string>
+                    <string>crl3.digicert.com</string>
+                    <string>crl4.digicert.com</string>
+                    <string>crl5.digicert.com</string>
+                </array>
+            </dict>
+
+            <key>OnDemandRules</key>
+            <array>
+                <dict>
+                    <key>InterfaceTypeMatch</key>
+                    <string>WiFi</string>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+                <dict>
+                    <key>InterfaceTypeMatch</key>
+                    <string>Cellular</string>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+                <dict>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+            </array>
+
+            <key>PayloadDisplayName</key>
+            <string>CR Blocker (Comprehensive)</string>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.dnsSettings.managed.A1B2C3D4-0001-0001-0001-000000000001</string>
+            <key>PayloadOrganization</key>
+            <string>Nexus - Mobile Configuration</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-0001-0001-0001-000000000001</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+
+    <key>PayloadDescription</key>
+    <string>
+        Profile 1: Certificate Revoke Blocker (Comprehensive)
+
+        Blocks all known Apple certificate revocation servers:
+        • ocsp.apple.com, ocsp2.apple.com, ocsp-lb.apple.com, ocsp2-lb.apple.com
+        • ocsp2-lb.apple.com.akadns.net, ocsp2.g.aaplimg.com
+        • crl.apple.com, crl2.apple.com, crl3.apple.com
+        • valid.apple.com, certs.apple.com, ppq.apple.com
+        • appattest.apple.com, vpp.itunes.apple.com, gdmf.apple.com
+        • ocsp.digicert.com, ocsp.digicert.cn
+        • crl.digicert.com, crl2.digicert.com, crl3.digicert.com, crl4.digicert.com, crl5.digicert.com
+
+        All other DNS traffic resolves normally. This provides strong protection against enterprise certificate revocations without affecting general browsing or ads.
+
+        ⚠️ Security risk: certificate revocation checks are disabled.
+    </string>
+
+    <key>PayloadDisplayName</key>
+    <string>CR Blocker (Comprehensive)</string>
+    <key>PayloadIdentifier</key>
+    <string>com.nexus.config.cr-comprehensive</string>
+    <key>PayloadOrganization</key>
+    <string>Nexus - Mobile Configuration</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>B2C3D4E5-0001-0001-0001-000000000001</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+
+    <key>ProhibitDisablement</key>
+    <false/>
+</dict>
+</plist>

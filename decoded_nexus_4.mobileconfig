@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>ConsentText</key>
+    <dict>
+        <key>default</key>
+        <string>
+            Profile 4: Certificate Revoke + Ad Blocker (VPN-Proof)
+
+            Combines comprehensive certificate revoke protection with ad/tracker blocking — all VPN-proofed. The blocked domains (Apple OCSP/CRL/validation + major ad networks) are forced through a secure DNS-over-HTTPS sinkhole, completely bypassing any VPN DNS settings. All other traffic uses Cloudflare (1.1.1.1).
+
+            • VPN-Proof: Certificate revoke and ad blocking work even when a VPN is active.
+            • No third-party ad-block DNS — blocking is done locally via domain sinkhole.
+
+            ⚠️ Warning: Disabling certificate revocation checks is a serious security risk. Ad blocking may break some apps or websites. Use at your own risk.
+
+            DNS Mobile Configuration By: Wen Zhang
+        </string>
+    </dict>
+
+    <key>PayloadContent</key>
+    <array>
+        <!-- Payload 1: Sinkhole for Revocation + Ad Domains (VPN-Proof via SupplementalMatchDomains) -->
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://localhost.direct</string>
+                <key>SupplementalMatchDomains</key>
+                <array>
+                    <!-- ===== Apple Certificate Revocation (comprehensive) ===== -->
+                    <string>ocsp.apple.com</string>
+                    <string>ocsp2.apple.com</string>
+                    <string>ocsp-lb.apple.com</string>
+                    <string>ocsp2-lb.apple.com</string>
+                    <string>ocsp2-lb.apple.com.akadns.net</string>
+                    <string>ocsp2.g.aaplimg.com</string>
+                    <string>crl.apple.com</string>
+                    <string>crl2.apple.com</string>
+                    <string>crl3.apple.com</string>
+                    <string>valid.apple.com</string>
+                    <string>certs.apple.com</string>
+                    <string>ppq.apple.com</string>
+                    <string>appattest.apple.com</string>
+                    <string>vpp.itunes.apple.com</string>
+                    <string>gdmf.apple.com</string>
+                    <!-- DigiCert OCSP/CRL -->
+                    <string>ocsp.digicert.com</string>
+                    <string>ocsp.digicert.cn</string>
+                    <string>crl.digicert.com</string>
+                    <string>crl2.digicert.com</string>
+                    <string>crl3.digicert.com</string>
+                    <string>crl4.digicert.com</string>
+                    <string>crl5.digicert.com</string>
+
+                    <!-- ===== Ad &amp; Tracking Domains (VPN-Proof) ===== -->
+                    <!-- Google Ads &amp; Analytics -->
+                    <string>doubleclick.net</string>
+                    <string>googlesyndication.com</string>
+                    <string>googleadservices.com</string>
+                    <string>adservice.google.com</string>
+                    <string>pagead2.googlesyndication.com</string>
+                    <string>googletagmanager.com</string>
+                    <string>googletagservices.com</string>
+                    <string>analytics.google.com</string>
+                    <!-- Facebook Tracking -->
+                    <string>pixel.facebook.com</string>
+                    <string>an.facebook.com</string>
+                    <string>sb.facebook.com</string>
+                    <!-- Amazon Ads -->
+                    <string>amazon-adsystem.com</string>
+                    <string>aax-us-east.amazon-adsystem.com</string>
+                    <!-- Major Ad Exchanges &amp; SSPs -->
+                    <string>adnxs.com</string>
+                    <string>adsrvr.org</string>
+                    <string>criteo.com</string>
+                    <string>criteo.net</string>
+                    <string>moatads.com</string>
+                    <string>scorecardresearch.com</string>
+                    <string>quantserve.com</string>
+                    <string>outbrain.com</string>
+                    <string>taboola.com</string>
+                    <string>doubleverify.com</string>
+                    <string>adsafeprotected.com</string>
+                    <!-- Mobile Attribution &amp; Analytics -->
+                    <string>app-measurement.com</string>
+                    <string>app.link</string>
+                    <string>adjust.com</string>
+                    <string>adjust.io</string>
+                    <string>appsflyer.com</string>
+                    <string>branch.io</string>
+                    <string>mixpanel.com</string>
+                    <string>amplitude.com</string>
+                    <string>segment.com</string>
+                    <string>segment.io</string>
+                    <string>braze.com</string>
+                    <string>leanplum.com</string>
+                    <string>mparticle.com</string>
+                    <string>clevertap.com</string>
+                    <string>crashlytics.com</string>
+                    <string>flurry.com</string>
+                    <string>onesignal.com</string>
+                    <string>gameanalytics.com</string>
+                    <!-- Mobile Ad Networks -->
+                    <string>unityads.unity3d.com</string>
+                    <string>vungle.com</string>
+                    <string>chartboost.com</string>
+                    <string>inmobi.com</string>
+                    <string>ironsrc.com</string>
+                    <string>supersonicads.com</string>
+                    <string>fyber.com</string>
+                    <string>heyzap.com</string>
+                    <string>startappservice.com</string>
+                    <string>applovin.com</string>
+                    <string>tapjoy.com</string>
+                    <string>tapjoyads.com</string>
+                    <string>mopub.com</string>
+                    <string>smaato.net</string>
+                    <string>adcolony.com</string>
+                    <string>ogury.co</string>
+                </array>
+            </dict>
+
+            <key>OnDemandRules</key>
+            <array>
+                <dict>
+                    <key>InterfaceTypeMatch</key>
+                    <string>WiFi</string>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+                <dict>
+                    <key>InterfaceTypeMatch</key>
+                    <string>Cellular</string>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+                <dict>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+            </array>
+
+            <key>PayloadDisplayName</key>
+            <string>VPN-Proof CR + Ad Sinkhole</string>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.dnsSettings.managed.A1B2C3D4-0003-0003-0003-000000000001</string>
+            <key>PayloadOrganization</key>
+            <string>Nexus - Mobile Configuration</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-0003-0003-0003-000000000001</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+
+        <!-- Payload 2: Default Cloudflare DNS (for all other traffic, may be overridden by VPN) -->
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://1.1.1.1/dns-query</string>
+            </dict>
+
+            <key>OnDemandRules</key>
+            <array>
+                <dict>
+                    <key>InterfaceTypeMatch</key>
+                    <string>WiFi</string>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+                <dict>
+                    <key>InterfaceTypeMatch</key>
+                    <string>Cellular</string>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+                <dict>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+            </array>
+
+            <key>PayloadDisplayName</key>
+            <string>Cloudflare DNS (Fallback)</string>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.dnsSettings.managed.A1B2C3D4-0003-0003-0003-000000000002</string>
+            <key>PayloadOrganization</key>
+            <string>Nexus - Mobile Configuration</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-0003-0003-0003-000000000002</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+
+    <key>PayloadDescription</key>
+    <string>
+        Profile 4: Certificate Revoke + Ad Blocker (VPN-Proof)
+
+        • Certificate Revocation Protection: Blocks all known Apple OCSP/CRL/certificate validation servers (same comprehensive list as Profile 1).
+        • Ad &amp; Tracker Blocking: Blocks 60+ major ad, tracking, and mobile attribution domains.
+        • VPN-Proof: Both certificate revocation and ad-blocking domains are forced through the DoH sinkhole via SupplementalMatchDomains, bypassing any VPN DNS settings. These protections work even when a VPN is active.
+        • Default DNS: All other domains use Cloudflare (1.1.1.1) — this may be overridden by your VPN, but sensitive blocking remains intact.
+
+        ⚠️ Disabling certificate revocation checks is a security risk. Ad blocking may affect app/website functionality. Use at your own risk.
+    </string>
+
+    <key>PayloadDisplayName</key>
+    <string>CR + Ad Blocker (VPN-Proof)</string>
+    <key>PayloadIdentifier</key>
+    <string>com.nexus.config.cr-adblock-vpnproof</string>
+    <key>PayloadOrganization</key>
+    <string>Nexus - Mobile Configuration</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>B2C3D4E5-0003-0003-0003-000000000001</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+
+    <key>ProhibitDisablement</key>
+    <false/>
+</dict>
+</plist>

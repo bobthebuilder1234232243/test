@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>ConsentText</key>
+    <dict>
+        <key>default</key>
+        <string>
+            ⚠️⚠️⚠️ WARNING – NOT RECOMMENDED FOR ANY USE ⚠️⚠️⚠️
+
+            Profile 5: Complete Apple Service Blocklist
+
+            This profile blocks virtually EVERY Apple service domain known — iCloud, App Store, iMessage, FaceTime, Siri, Maps, push notifications, updates, backups, activation, Find My, Apple Pay, Game Center, News, Weather, Stocks, and more.
+
+            🔴 YOUR DEVICE WILL BECOME ALMOST COMPLETELY NON‑FUNCTIONAL:
+            • No iCloud sync, backup, or Drive
+            • No App Store or app updates
+            • No iMessage or FaceTime
+            • No Siri, Maps, Weather, or News
+            • No push notifications
+            • No software updates
+            • No Apple Pay
+            • No Find My
+            • No device activation (if re‑activated)
+            • No certificate validation (same as Profile 1)
+            • No analytics, no ads (by accident)
+
+            This profile is provided ONLY for testing, reference, or extreme cases where you intentionally want to disconnect an iOS device from all Apple services. It is NOT recommended for daily use.
+
+            DNS Mobile Configuration By: Wen Zhang
+        </string>
+    </dict>
+
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>HTTPS</string>
+                <key>ServerURL</key>
+                <string>https://localhost.direct</string>
+                <key>SupplementalMatchDomains</key>
+                <array>
+                    <!-- ============================================ -->
+                    <!-- CERTIFICATE REVOCATION (Profile 1 full list) -->
+                    <!-- ============================================ -->
+                    <string>ocsp.apple.com</string>
+                    <string>ocsp2.apple.com</string>
+                    <string>ocsp-lb.apple.com</string>
+                    <string>ocsp2-lb.apple.com</string>
+                    <string>ocsp2-lb.apple.com.akadns.net</string>
+                    <string>ocsp2.g.aaplimg.com</string>
+                    <string>crl.apple.com</string>
+                    <string>crl2.apple.com</string>
+                    <string>crl3.apple.com</string>
+                    <string>valid.apple.com</string>
+                    <string>certs.apple.com</string>
+                    <string>ppq.apple.com</string>
+                    <string>appattest.apple.com</string>
+                    <string>vpp.itunes.apple.com</string>
+                    <string>gdmf.apple.com</string>
+                    <string>ocsp.digicert.com</string>
+                    <string>ocsp.digicert.cn</string>
+                    <string>crl.digicert.com</string>
+                    <string>crl2.digicert.com</string>
+                    <string>crl3.digicert.com</string>
+                    <string>crl4.digicert.com</string>
+                    <string>crl5.digicert.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- ICLOUD – All Core & CDN Domains             -->
+                    <!-- ============================================ -->
+                    <string>icloud.com</string>
+                    <string>icloud-content.com</string>
+                    <string>icloud.com.cn</string>
+                    <string>icloud-analytics.com</string>
+                    <string>icloud-dns.com</string>
+                    <string>icloud-dns.net</string>
+                    <string>icloud-sandbox.com</string>
+                    <string>me.com</string>
+                    <string>mac.com</string>
+                    <!-- iCloud sub‑services -->
+                    <string>www.icloud.com</string>
+                    <string>setup.icloud.com</string>
+                    <string>p33-fmip.icloud.com</string>
+                    <string>p33-fmfmobile.icloud.com</string>
+                    <string>p33-ckdatabase.icloud.com</string>
+                    <string>p33-ckdatabasews.icloud.com</string>
+                    <string>p33-escrowproxy.icloud.com</string>
+                    <string>p33-quota.icloud.com</string>
+                    <string>p33-fmf.icloud.com</string>
+                    <string>p33-ckdevice.icloud.com</string>
+                    <string>p33-ckmanatee.icloud.com</string>
+                    <string>p33-ckmanatee-prod.icloud.com</string>
+                    <string>p33-contacts.icloud.com</string>
+                    <string>p33-calendars.icloud.com</string>
+                    <string>p33-bookmarks.icloud.com</string>
+                    <string>p33-reminders.icloud.com</string>
+                    <string>p33-notes.icloud.com</string>
+                    <string>p33-photos.icloud.com</string>
+                    <string>p33-fmip.icloud.com</string>
+                    <string>p33-streams.icloud.com</string>
+                    <string>p33-ckrecord.icloud.com</string>
+                    <string>p33-mail.icloud.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- APP STORE / ITUNES / MEDIA                  -->
+                    <!-- ============================================ -->
+                    <string>itunes.apple.com</string>
+                    <string>apps.apple.com</string>
+                    <string>ax.itunes.apple.com</string>
+                    <string>se.itunes.apple.com</string>
+                    <string>su.itunes.apple.com</string>
+                    <string>buy.itunes.apple.com</string>
+                    <string>sandbox.itunes.apple.com</string>
+                    <string>purchase.itunes.apple.com</string>
+                    <string>metrics.apple.com</string>
+                    <string>securemetrics.apple.com</string>
+                    <string>itunesconnect.apple.com</string>
+                    <string>appstore.com</string>
+                    <string>mzstatic.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- PUSH NOTIFICATIONS                          -->
+                    <!-- ============================================ -->
+                    <string>courier.push.apple.com</string>
+                    <string>courier2.push.apple.com</string>
+                    <string>push.apple.com</string>
+                    <string>init.push.apple.com</string>
+                    <string>feedback.push.apple.com</string>
+                    <string>api.push.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- IMESSAGE & FACETIME                         -->
+                    <!-- ============================================ -->
+                    <string>ess.apple.com</string>
+                    <string>escrowproxy.apple.com</string>
+                    <string>identity.ess.apple.com</string>
+                    <string>profile.ess.apple.com</string>
+                    <string>facetime.apple.com</string>
+                    <string>imessage.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- SIRI & DICTATION                            -->
+                    <!-- ============================================ -->
+                    <string>guzzoni.apple.com</string>
+                    <string>siri.apple.com</string>
+                    <string>siri.apple.com.akadns.net</string>
+                    <string>dictation.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- MAPS                                        -->
+                    <!-- ============================================ -->
+                    <string>gspe1-ssl.ls.apple.com</string>
+                    <string>gspe35-ssl.ls.apple.com</string>
+                    <string>gspe21-ssl.ls.apple.com</string>
+                    <string>maps.apple.com</string>
+                    <string>maps.apple.com.akadns.net</string>
+
+                    <!-- ============================================ -->
+                    <!-- WEATHER, STOCKS, NEWS                       -->
+                    <!-- ============================================ -->
+                    <string>weather-data.apple.com</string>
+                    <string>weather.apple.com</string>
+                    <string>stocks-data.apple.com</string>
+                    <string>news.apple.com</string>
+                    <string>news-events.apple.com</string>
+                    <string>news-client.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- FIND MY                                     -->
+                    <!-- ============================================ -->
+                    <string>fmip.apple.com</string>
+                    <string>fmfmobile.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- BACKUP & RESTORE                            -->
+                    <!-- ============================================ -->
+                    <string>backup.ios.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- ACTIVATION & SETUP                          -->
+                    <!-- ============================================ -->
+                    <string>albert.apple.com</string>
+                    <string>captive.apple.com</string>
+                    <string>gs.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- TIME & NTP                                  -->
+                    <!-- ============================================ -->
+                    <string>time.apple.com</string>
+                    <string>time-ios.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- SOFTWARE UPDATES & RECOVERY                 -->
+                    <!-- ============================================ -->
+                    <string>mesu.apple.com</string>
+                    <string>appldnld.apple.com</string>
+                    <string>swscan.apple.com</string>
+                    <string>swcdn.apple.com</string>
+                    <string>swdownload.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- APPLE ID & AUTHENTICATION                   -->
+                    <!-- ============================================ -->
+                    <string>appleid.apple.com</string>
+                    <string>idmsa.apple.com</string>
+                    <string>gsa.apple.com</string>
+                    <string>auth.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- APPLE PAY & WALLET                          -->
+                    <!-- ============================================ -->
+                    <string>apple-pay.apple.com</string>
+                    <string>pay.apple.com</string>
+                    <string>wallet.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- GAME CENTER                                 -->
+                    <!-- ============================================ -->
+                    <string>gc.apple.com</string>
+                    <string>gk.apple.com</string>
+                    <string>gamecenter.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- DEVELOPER SERVICES                          -->
+                    <!-- ============================================ -->
+                    <string>developer.apple.com</string>
+                    <string>devimages.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- ANALYTICS & ADVERTISING                     -->
+                    <!-- ============================================ -->
+                    <string>iadsdk.apple.com</string>
+                    <string>iad.apple.com</string>
+                    <string>iadcontent.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- CDN & EDGE                                  -->
+                    <!-- ============================================ -->
+                    <string>aaplimg.com</string>
+                    <string>akadns.net</string>
+                    <string>edgekey.com</string>
+                    <string>edgesuite.net</string>
+
+                    <!-- ============================================ -->
+                    <!-- DIAGNOSTICS & LOGS                          -->
+                    <!-- ============================================ -->
+                    <string>diagsw.apple.com</string>
+                    <string>diagnostics.apple.com</string>
+
+                    <!-- ============================================ -->
+                    <!-- MISCELLANEOUS KNOWN APPLE DOMAINS           -->
+                    <!-- ============================================ -->
+                    <string>apple.com</string>
+                    <string>apple-dns.net</string>
+                    <string>apple.news</string>
+                    <string>cups.org</string> <!-- sometimes used -->
+                    <string>ls.apple.com</string>
+                    <string>pancake.apple.com</string>
+                    <string>streamingaudio.itunes.apple.com</string>
+                    <string>radio.itunes.apple.com</string>
+                    <string>radio-services.itunes.apple.com</string>
+                    <string>genius.itunes.apple.com</string>
+                    <string>itunesu.apple.com</string>
+                    <string>books.itunes.apple.com</string>
+                    <string>podcasts.apple.com</string>
+                    <string>podcasts.itunes.apple.com</string>
+                    <string>trailers.apple.com</string>
+                    <string>tv.apple.com</string>
+                    <string>music.apple.com</string>
+                    <string>apple.news</string>
+                    <string>support.apple.com</string>
+                    <string>checkcoverage.apple.com</string>
+                    <string>expresslane.apple.com</string>
+                    <string>getsupport.apple.com</string>
+                    <string>feedback.apple.com</string>
+                    <string>bugreport.apple.com</string>
+                    <string>cdn-apple.com</string>
+                </array>
+            </dict>
+
+            <key>OnDemandRules</key>
+            <array>
+                <dict>
+                    <key>InterfaceTypeMatch</key>
+                    <string>WiFi</string>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+                <dict>
+                    <key>InterfaceTypeMatch</key>
+                    <string>Cellular</string>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+                <dict>
+                    <key>Action</key>
+                    <string>Connect</string>
+                </dict>
+            </array>
+
+            <key>PayloadDisplayName</key>
+            <string>All Apple Domains (☠️ Not Recommended)</string>
+            <key>PayloadIdentifier</key>
+            <string>com.apple.dnsSettings.managed.A1B2C3D4-0005-0005-0005-000000000001</string>
+            <key>PayloadOrganization</key>
+            <string>Nexus - Mobile Configuration</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-0005-0005-0005-000000000001</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+
+    <key>PayloadDescription</key>
+    <string>
+        ⚠️⚠️⚠️ PROFILE 5: COMPLETE APPLE SERVICE BLACKOUT ⚠️⚠️⚠️
+
+        This profile blocks over 130 Apple domains, effectively cutting your device off from nearly all Apple services. This includes, but is not limited to:
+
+        ❌ iCloud (all sync, Drive, Photos, Backup)
+        ❌ App Store &amp; iTunes
+        ❌ iMessage &amp; FaceTime
+        ❌ Push Notifications
+        ❌ Siri &amp; Dictation
+        ❌ Apple Maps
+        ❌ Find My iPhone
+        ❌ Apple Pay &amp; Wallet
+        ❌ Game Center
+        ❌ Weather, Stocks, News
+        ❌ Software Updates
+        ❌ Device Activation
+        ❌ Apple ID &amp; Authentication
+        ❌ All CDN &amp; Edge content delivery
+
+        🔴 THIS PROFILE IS PROVIDED FOR REFERENCE ONLY.
+        DO NOT INSTALL unless you fully understand that your device will become extremely limited and essentially unusable for normal daily functions. Certificate validation is also blocked (same as Profile 1), creating a security risk.
+
+        You have been warned.
+    </string>
+
+    <key>PayloadDisplayName</key>
+    <string>☠️ ALL Apple Domains Blocked</string>
+    <key>PayloadIdentifier</key>
+    <string>com.nexus.config.all-apple-block</string>
+    <key>PayloadOrganization</key>
+    <string>Nexus - Mobile Configuration</string>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>B2C3D4E5-0005-0005-0005-000000000001</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+
+    <key>ProhibitDisablement</key>
+    <false/>
+</dict>
+</plist>
