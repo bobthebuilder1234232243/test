@@ -1,0 +1,61 @@
+name: Sign MobileConfig Profiles
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # Allows you to run this manually from the Actions tab
+
+jobs:
+  sign-job:
+    runs-on: ubuntu-latest
+
+    env:
+      P12_PASSWORD: "Nexus1234"
+      BASE64_CERT_FILE: "BASE64_p12.txt"
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Decode Certificate and Sign All Profiles
+        run: |
+          # 1. Convert the Base64 text file back into a binary .p12
+          base64 --decode "$BASE64_CERT_FILE" > temporary.p12
+
+          # 2. Extract the Client Certificate (Public)
+          openssl pkcs12 -in temporary.p12 -clcerts -nokeys -out cert.pem \
+            -passin pass:"$P12_PASSWORD"
+
+          # 3. Extract the Private Key (nodes = no encryption on the output key)
+          openssl pkcs12 -in temporary.p12 -nocerts -nodes -out key.pem \
+            -passin pass:"$P12_PASSWORD"
+
+          # 4. Loop over all 5 configs and sign each one
+          for i in 1 2 3 4 5; do
+            INPUT="decoded_nexus_${i}.mobileconfig"
+            OUTPUT="signed_nexus_${i}.mobileconfig"
+
+            if [ -f "$INPUT" ]; then
+              echo "Signing $INPUT -> $OUTPUT"
+              openssl smime -sign \
+                -signer cert.pem \
+                -inkey key.pem \
+                -nodetach \
+                -outform der \
+                -in "$INPUT" \
+                -out "$OUTPUT"
+            else
+              echo "WARNING: $INPUT not found — skipping"
+            fi
+          done
+
+          # 5. Security Cleanup: Remove temporary files from the runner
+          rm temporary.p12 cert.pem key.pem
+
+      - name: Upload Signed Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Signed-Nexus-Profiles
+          path: signed_nexus_*.mobileconfig
+          retention-days: 5
+
