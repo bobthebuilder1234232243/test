@@ -65,13 +65,22 @@
                     <string>googletagmanager.com</string>
                     <string>googletagservices.com</string>
                     <string>analytics.google.com</string>
+                    <string>google-analytics.com</string>
+                    <string>2mdn.net</string>
+                    <string>s.youtube.com</string>
+                    <string>fundingchoicesmessages.google.com</string>
+                    <string>pagead-googlehosted.l.google.com</string>
+                    <string>app-analytics-services.com</string>
                     <!-- Facebook Tracking -->
                     <string>pixel.facebook.com</string>
                     <string>an.facebook.com</string>
                     <string>sb.facebook.com</string>
+                    <string>connect.facebook.net</string>
                     <!-- Amazon Ads -->
                     <string>amazon-adsystem.com</string>
                     <string>aax-us-east.amazon-adsystem.com</string>
+                    <string>aax.amazon-adsystem.com</string>
+                    <string>assoc-amazon.com</string>
                     <!-- Major Ad Exchanges &amp; SSPs -->
                     <string>adnxs.com</string>
                     <string>adsrvr.org</string>
@@ -84,6 +93,140 @@
                     <string>taboola.com</string>
                     <string>doubleverify.com</string>
                     <string>adsafeprotected.com</string>
+                    <string>rubiconproject.com</string>
+                    <string>pubmatic.com</string>
+                    <string>openx.net</string>
+                    <string>appnexus.com</string>
+                    <string>casalemedia.com</string>
+                    <string>contextweb.com</string>
+                    <string>indexexchange.com</string>
+                    <string>yieldmo.com</string>
+                    <string>sharethrough.com</string>
+                    <string>teads.tv</string>
+                    <string>smartadserver.com</string>
+                    <string>33across.com</string>
+                    <string>adsymptotic.com</string>
+                    <string>adform.net</string>
+                    <string>advertising.com</string>
+                    <string>agkn.com</string>
+                    <string>bluekai.com</string>
+                    <string>demdex.net</string>
+                    <string>exelator.com</string>
+                    <string>krxd.net</string>
+                    <string>mathtag.com</string>
+                    <string>ml314.com</string>
+                    <string>nexac.com</string>
+                    <string>omtrdc.net</string>
+                    <string>rlcdn.com</string>
+                    <string>rtbhouse.com</string>
+                    <string>simpli.fi</string>
+                    <string>sovrn.com</string>
+                    <string>spotxchange.com</string>
+                    <string>spotx.tv</string>
+                    <string>tribalfusion.com</string>
+                    <string>turn.com</string>
+                    <string>yieldlab.net</string>
+                    <string>zedo.com</string>
+                    <string>bidswitch.net</string>
+                    <string>1rx.io</string>
+                    <string>3lift.com</string>
+                    <string>adroll.com</string>
+                    <string>emxdgt.com</string>
+                    <string>eyeota.net</string>
+                    <string>gumgum.com</string>
+                    <string>im-apps.net</string>
+                    <string>iponweb.net</string>
+                    <string>lijit.com</string>
+                    <string>loopme.me</string>
+                    <string>mediabong.com</string>
+                    <string>mookie1.com</string>
+                    <string>netmng.com</string>
+                    <string>nr-data.net</string>
+                    <string>onetag.com</string>
+                    <string>p-td.com</string>
+                    <string>pixalate.net</string>
+                    <string>rfihub.com</string>
+                    <string>rkdms.com</string>
+                    <string>semasio.net</string>
+                    <string>serving-sys.com</string>
+                    <string>sizmek.com</string>
+                    <string>sonobi.com</string>
+                    <string>tapad.com</string>
+                    <string>tidaltv.com</string>
+                    <string>tremorhub.com</string>
+                    <string>tubemogul.com</string>
+                    <string>undertone.com</string>
+                    <string>vidible.tv</string>
+                    <string>vindicosuite.com</string>
+                    <string>yieldbot.com</string>
+                    <string>zergnet.com</string>
+                    <string>zemanta.com</string>
+                    <string>freewheel.tv</string>
+                    <string>springserve.com</string>
+                    <string>stackadapt.com</string>
+                    <string>telaria.com</string>
+                    <string>triplelift.com</string>
+                    <string>xaxis.com</string>
+                    <string>viantinc.com</string>
+                    <string>kargo.com</string>
+                    <string>districtm.io</string>
+                    <string>adhigh.net</string>
+                    <string>adsnative.com</string>
+                    <string>appier.net</string>
+                    <string>adocean.pl</string>
+                    <string>adotmob.com</string>
+                    <string>aerserv.com</string>
+                    <string>conversantmedia.com</string>
+                    <string>dotomi.com</string>
+                    <string>flashtalking.com</string>
+                    <string>innovid.com</string>
+                    <string>intentiq.com</string>
+                    <string>connexity.net</string>
+                    <string>6sc.co</string>
+                    <string>aniview.com</string>
+                    <string>bidtheatre.com</string>
+                    <string>bombora.com</string>
+                    <string>bttrack.com</string>
+                    <string>clickagy.com</string>
+                    <string>contentsquare.com</string>
+                    <string>deepintent.com</string>
+                    <string>engagebdr.com</string>
+                    <string>eulerian.net</string>
+                    <string>exponea.com</string>
+                    <string>eyeviewdigital.com</string>
+                    <string>groundtruth.com</string>
+                    <string>id5-sync.com</string>
+                    <string>igodigital.com</string>
+                    <string>impact.com</string>
+                    <string>jivox.com</string>
+                    <string>knorex.com</string>
+                    <string>ligatus.com</string>
+                    <string>liveintent.com</string>
+                    <string>liveramp.com</string>
+                    <string>lotame.com</string>
+                    <string>media.net</string>
+                    <string>nativex.com</string>
+                    <string>onaudience.com</string>
+                    <string>perfectaudience.com</string>
+                    <string>permutive.com</string>
+                    <string>plista.com</string>
+                    <string>pulsepoint.com</string>
+                    <string>quantcast.com</string>
+                    <string>quantcount.com</string>
+                    <string>revcontent.com</string>
+                    <string>revjet.com</string>
+                    <string>richaudience.com</string>
+                    <string>smadex.com</string>
+                    <string>smartclip.net</string>
+                    <string>stirista.com</string>
+                    <string>storygize.com</string>
+                    <string>tradedoubler.com</string>
+                    <string>truoptik.com</string>
+                    <string>twiago.com</string>
+                    <string>unrulymedia.com</string>
+                    <string>weborama.com</string>
+                    <string>widespace.com</string>
+                    <string>youappi.com</string>
                     <!-- Mobile Attribution &amp; Analytics -->
                     <string>app-measurement.com</string>
                     <string>app.link</string>
@@ -103,6 +246,42 @@
                     <string>flurry.com</string>
                     <string>onesignal.com</string>
                     <string>gameanalytics.com</string>
+                    <string>kochava.com</string>
+                    <string>singular.net</string>
+                    <string>tenjin.io</string>
+                    <string>apptentive.com</string>
+                    <string>apptimize.com</string>
+                    <string>localytics.com</string>
+                    <string>urbanairship.com</string>
+                    <string>airship.com</string>
+                    <string>pushwoosh.com</string>
+                    <string>swrve.com</string>
+                    <string>batch.com</string>
+                    <string>iterable.com</string>
+                    <string>hotjar.com</string>
+                    <string>optimizely.com</string>
+                    <string>vwo.com</string>
+                    <string>fullstory.com</string>
+                    <string>mouseflow.com</string>
+                    <string>luckyorange.com</string>
+                    <string>smartlook.com</string>
+                    <string>crazyegg.com</string>
+                    <string>clicktale.net</string>
+                    <string>chartbeat.com</string>
+                    <string>chartbeat.net</string>
+                    <string>comscore.com</string>
+                    <string>imrworldwide.com</string>
+                    <string>kissmetrics.com</string>
+                    <string>heap.io</string>
+                    <string>heapanalytics.com</string>
+                    <string>woopra.com</string>
+                    <string>statcounter.com</string>
+                    <string>histats.com</string>
+                    <string>clicky.com</string>
+                    <string>2o7.net</string>
+                    <string>everesttech.net</string>
+                    <string>adobedtm.com</string>
+                    <string>clarity.ms</string>
                     <!-- Mobile Ad Networks -->
                     <string>unityads.unity3d.com</string>
                     <string>vungle.com</string>
@@ -120,6 +299,70 @@
                     <string>smaato.net</string>
                     <string>adcolony.com</string>
                     <string>ogury.co</string>
+                    <string>appodeal.com</string>
+                    <string>appnext.com</string>
+                    <string>adincube.com</string>
+                    <string>bidmachine.io</string>
+                    <string>display.io</string>
+                    <string>liftoff.io</string>
+                    <string>mintegral.com</string>
+                    <string>mobvista.com</string>
+                    <string>pubnative.net</string>
+                    <string>start.io</string>
+                    <string>yeahmobi.com</string>
+                    <string>zucks.net</string>
+                    <string>inner-active.com</string>
+                    <string>tapresearch.com</string>
+                    <!-- Social Trackers -->
+                    <string>ct.pinterest.com</string>
+                    <string>analytics.twitter.com</string>
+                    <string>static.ads-twitter.com</string>
+                    <string>ads-twitter.com</string>
+                    <string>analytics.tiktok.com</string>
+                    <string>ads.tiktok.com</string>
+                    <string>business-api.tiktok.com</string>
+                    <string>tr.snapchat.com</string>
+                    <string>sc-static.net</string>
+                    <string>ads.linkedin.com</string>
+                    <string>px.ads.linkedin.com</string>
+                    <string>snap.licdn.com</string>
+                    <string>alb.reddit.com</string>
+                    <string>addthis.com</string>
+                    <string>sharethis.com</string>
+                    <string>addtoany.com</string>
+                    <string>po.st</string>
+                    <!-- Chinese Ad Networks -->
+                    <string>umeng.com</string>
+                    <string>umeng.co</string>
+                    <string>cnzz.com</string>
+                    <string>tanx.com</string>
+                    <string>alimama.com</string>
+                    <string>gdt.qq.com</string>
+                    <string>e.qq.com</string>
+                    <string>pgdt.gtimg.cn</string>
+                    <string>pos.baidu.com</string>
+                    <string>cpro.baidu.com</string>
+                    <string>eclick.baidu.com</string>
+                    <string>cbjs.baidu.com</string>
+                    <string>hm.baidu.com</string>
+                    <string>pangle.io</string>
+                    <string>pangolin-sdk-toutiao.com</string>
+                    <string>snssdk.com</string>
+                    <!-- Aggressive / Popunder / Adult Networks -->
+                    <string>exoclick.com</string>
+                    <string>exosrv.com</string>
+                    <string>trafficjunky.net</string>
+                    <string>juicyads.com</string>
+                    <string>popads.net</string>
+                    <string>popcash.net</string>
+                    <string>propellerads.com</string>
+                    <string>propellerpops.com</string>
+                    <string>adsterra.com</string>
+                    <string>hilltopads.net</string>
+                    <string>clickadu.com</string>
+                    <string>onclckds.com</string>
+                    <string>adcash.com</string>
+                    <string>mgid.com</string>
                 </array>
             </dict>
 
@@ -207,7 +450,7 @@
         Profile 2: Certificate Revoke Blocker + Ad Blocker
 
         • Certificate Revocation Protection: Blocks all known Apple OCSP/CRL/certificate validation servers (same comprehensive list as Profile 1).
-        • Ad &amp; Tracker Blocking: Blocks 60+ major ad, tracking, and mobile attribution domains via local sinkhole. No third-party ad-block DNS used — all filtering is done locally.
+        • Ad &amp; Tracker Blocking: Blocks 300+ major ad, tracking, and mobile attribution domains via local sinkhole. No third-party ad-block DNS used — all filtering is done locally.
         • Default DNS: All other domains resolve through Cloudflare (1.1.1.1) for fast, private DNS.
 
         ⚠️ Ad blocking may cause some apps or websites to behave unexpectedly. Certificate revocation blocking is a security risk.
