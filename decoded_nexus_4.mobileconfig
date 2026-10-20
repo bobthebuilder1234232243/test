@@ -6,12 +6,12 @@
     <dict>
         <key>default</key>
         <string>
-            Profile 4: Certificate Revoke + Ad Blocker (VPN-Proof)
+            Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient)
 
-            Combines comprehensive certificate revoke protection with ad/tracker blocking — all VPN-proofed. The blocked domains (Apple OCSP/CRL/validation + major ad networks) are forced through a secure DNS-over-HTTPS sinkhole, completely bypassing any VPN DNS settings. All other traffic uses Cloudflare (1.1.1.1).
+            Combines comprehensive certificate revoke protection with ad/tracker blocking. Both the revocation domains and the ad/tracker domains are forced through a split‑DNS tunnel, which is designed to remain active even when many third‑party VPNs are connected.
 
-            • VPN-Proof: Certificate revoke and ad blocking work even when a VPN is active.
-            • No third-party ad-block DNS — blocking is done locally via domain sinkhole.
+            • Uses a split‑tunnel VPN carrier with NEDNSSettings. Only the listed domains are sent to a blackhole resolver; all other DNS traffic is handled normally.
+            • Ad blocking is performed locally via domain sinkhole — no third‑party ad‑block DNS is used.
 
             ⚠️ Warning: Disabling certificate revocation checks is a serious security risk. Ad blocking may break some apps or websites. Use at your own risk.
 
@@ -21,14 +21,47 @@
 
     <key>PayloadContent</key>
     <array>
-        <!-- Payload 1: Sinkhole for Revocation + Ad Domains (VPN-Proof via SupplementalMatchDomains) -->
+        <!-- VPN Payload with Split DNS (NEDNSSettings) -->
         <dict>
-            <key>DNSSettings</key>
+            <key>PayloadType</key>
+            <string>com.apple.vpn.managed</string>
+            <key>PayloadIdentifier</key>
+            <string>com.nexus.vpn.cradblock.A1B2C3D4-0004-0004-0004-000000000001</string>
+            <key>PayloadUUID</key>
+            <string>A1B2C3D4-0004-0004-0004-000000000001</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>PayloadDisplayName</key>
+            <string>CR + Ad Split‑DNS Tunnel</string>
+
+            <!-- IKEv2 is used as a harmless carrier for the DNS settings -->
+            <key>VPNSubType</key>
+            <string>com.apple.ikev2</string>
+            <key>VPNType</key>
+            <string>IKEv2</string>
+
+            <!-- Minimal IKEv2 settings (does not need to establish a real tunnel) -->
+            <key>IKEv2</key>
             <dict>
-                <key>DNSProtocol</key>
-                <string>HTTPS</string>
-                <key>ServerURL</key>
-                <string>https://localhost.direct</string>
+                <key>RemoteAddress</key>
+                <string>127.0.0.1</string>
+                <key>LocalIdentifier</key>
+                <string>nexus-cr-adblock</string>
+                <key>RemoteIdentifier</key>
+                <string>nexus-cr-adblock</string>
+                <key>AuthenticationMethod</key>
+                <string>None</string>
+            </dict>
+
+            <!-- Split DNS: capture ONLY the revocation + ad/tracker domains -->
+            <key>DNS</key>
+            <dict>
+                <key>ServerAddresses</key>
+                <array>
+                    <!-- Blackhole DNS (TEST-NET-1, guaranteed non-routable) -->
+                    <string>192.0.2.1</string>
+                    <string>192.0.2.2</string>
+                </array>
                 <key>SupplementalMatchDomains</key>
                 <array>
                     <!-- ===== Apple Certificate Revocation (comprehensive) ===== -->
@@ -47,7 +80,6 @@
                     <string>appattest.apple.com</string>
                     <string>vpp.itunes.apple.com</string>
                     <string>gdmf.apple.com</string>
-                    <!-- DigiCert OCSP/CRL -->
                     <string>ocsp.digicert.com</string>
                     <string>ocsp.digicert.cn</string>
                     <string>crl.digicert.com</string>
@@ -56,8 +88,8 @@
                     <string>crl4.digicert.com</string>
                     <string>crl5.digicert.com</string>
 
-                    <!-- ===== Ad &amp; Tracking Domains (VPN-Proof) ===== -->
-                    <!-- Google Ads &amp; Analytics -->
+                    <!-- ===== Ad & Tracking Domains (VPN‑Resilient) ===== -->
+                    <!-- Google Ads & Analytics -->
                     <string>doubleclick.net</string>
                     <string>googlesyndication.com</string>
                     <string>googleadservices.com</string>
@@ -66,14 +98,23 @@
                     <string>googletagmanager.com</string>
                     <string>googletagservices.com</string>
                     <string>analytics.google.com</string>
+                    <string>google-analytics.com</string>
+                    <string>2mdn.net</string>
+                    <string>s.youtube.com</string>
+                    <string>fundingchoicesmessages.google.com</string>
+                    <string>pagead-googlehosted.l.google.com</string>
+                    <string>app-analytics-services.com</string>
                     <!-- Facebook Tracking -->
                     <string>pixel.facebook.com</string>
                     <string>an.facebook.com</string>
                     <string>sb.facebook.com</string>
+                    <string>connect.facebook.net</string>
                     <!-- Amazon Ads -->
                     <string>amazon-adsystem.com</string>
                     <string>aax-us-east.amazon-adsystem.com</string>
-                    <!-- Major Ad Exchanges &amp; SSPs -->
+                    <string>aax.amazon-adsystem.com</string>
+                    <string>assoc-amazon.com</string>
+                    <!-- Major Ad Exchanges & SSPs -->
                     <string>adnxs.com</string>
                     <string>adsrvr.org</string>
                     <string>criteo.com</string>
@@ -85,7 +126,141 @@
                     <string>taboola.com</string>
                     <string>doubleverify.com</string>
                     <string>adsafeprotected.com</string>
-                    <!-- Mobile Attribution &amp; Analytics -->
+                    <string>rubiconproject.com</string>
+                    <string>pubmatic.com</string>
+                    <string>openx.net</string>
+                    <string>appnexus.com</string>
+                    <string>casalemedia.com</string>
+                    <string>contextweb.com</string>
+                    <string>indexexchange.com</string>
+                    <string>yieldmo.com</string>
+                    <string>sharethrough.com</string>
+                    <string>teads.tv</string>
+                    <string>smartadserver.com</string>
+                    <string>33across.com</string>
+                    <string>adsymptotic.com</string>
+                    <string>adform.net</string>
+                    <string>advertising.com</string>
+                    <string>agkn.com</string>
+                    <string>bluekai.com</string>
+                    <string>demdex.net</string>
+                    <string>exelator.com</string>
+                    <string>krxd.net</string>
+                    <string>mathtag.com</string>
+                    <string>ml314.com</string>
+                    <string>nexac.com</string>
+                    <string>omtrdc.net</string>
+                    <string>rlcdn.com</string>
+                    <string>rtbhouse.com</string>
+                    <string>simpli.fi</string>
+                    <string>sovrn.com</string>
+                    <string>spotxchange.com</string>
+                    <string>spotx.tv</string>
+                    <string>tribalfusion.com</string>
+                    <string>turn.com</string>
+                    <string>yieldlab.net</string>
+                    <string>zedo.com</string>
+                    <string>bidswitch.net</string>
+                    <string>1rx.io</string>
+                    <string>3lift.com</string>
+                    <string>adroll.com</string>
+                    <string>emxdgt.com</string>
+                    <string>eyeota.net</string>
+                    <string>gumgum.com</string>
+                    <string>im-apps.net</string>
+                    <string>iponweb.net</string>
+                    <string>lijit.com</string>
+                    <string>loopme.me</string>
+                    <string>mediabong.com</string>
+                    <string>mookie1.com</string>
+                    <string>netmng.com</string>
+                    <string>nr-data.net</string>
+                    <string>onetag.com</string>
+                    <string>p-td.com</string>
+                    <string>pixalate.net</string>
+                    <string>rfihub.com</string>
+                    <string>rkdms.com</string>
+                    <string>semasio.net</string>
+                    <string>serving-sys.com</string>
+                    <string>sizmek.com</string>
+                    <string>sonobi.com</string>
+                    <string>tapad.com</string>
+                    <string>tidaltv.com</string>
+                    <string>tremorhub.com</string>
+                    <string>tubemogul.com</string>
+                    <string>undertone.com</string>
+                    <string>vidible.tv</string>
+                    <string>vindicosuite.com</string>
+                    <string>yieldbot.com</string>
+                    <string>zergnet.com</string>
+                    <string>zemanta.com</string>
+                    <string>freewheel.tv</string>
+                    <string>springserve.com</string>
+                    <string>stackadapt.com</string>
+                    <string>telaria.com</string>
+                    <string>triplelift.com</string>
+                    <string>xaxis.com</string>
+                    <string>viantinc.com</string>
+                    <string>kargo.com</string>
+                    <string>districtm.io</string>
+                    <string>adhigh.net</string>
+                    <string>adsnative.com</string>
+                    <string>appier.net</string>
+                    <string>adocean.pl</string>
+                    <string>adotmob.com</string>
+                    <string>aerserv.com</string>
+                    <string>conversantmedia.com</string>
+                    <string>dotomi.com</string>
+                    <string>flashtalking.com</string>
+                    <string>innovid.com</string>
+                    <string>intentiq.com</string>
+                    <string>connexity.net</string>
+                    <string>6sc.co</string>
+                    <string>aniview.com</string>
+                    <string>bidtheatre.com</string>
+                    <string>bombora.com</string>
+                    <string>bttrack.com</string>
+                    <string>clickagy.com</string>
+                    <string>contentsquare.com</string>
+                    <string>deepintent.com</string>
+                    <string>engagebdr.com</string>
+                    <string>eulerian.net</string>
+                    <string>exponea.com</string>
+                    <string>eyeviewdigital.com</string>
+                    <string>groundtruth.com</string>
+                    <string>id5-sync.com</string>
+                    <string>igodigital.com</string>
+                    <string>impact.com</string>
+                    <string>jivox.com</string>
+                    <string>knorex.com</string>
+                    <string>ligatus.com</string>
+                    <string>liveintent.com</string>
+                    <string>liveramp.com</string>
+                    <string>lotame.com</string>
+                    <string>media.net</string>
+                    <string>nativex.com</string>
+                    <string>onaudience.com</string>
+                    <string>perfectaudience.com</string>
+                    <string>permutive.com</string>
+                    <string>plista.com</string>
+                    <string>pulsepoint.com</string>
+                    <string>quantcast.com</string>
+                    <string>quantcount.com</string>
+                    <string>revcontent.com</string>
+                    <string>revjet.com</string>
+                    <string>richaudience.com</string>
+                    <string>smadex.com</string>
+                    <string>smartclip.net</string>
+                    <string>stirista.com</string>
+                    <string>storygize.com</string>
+                    <string>tradedoubler.com</string>
+                    <string>truoptik.com</string>
+                    <string>twiago.com</string>
+                    <string>unrulymedia.com</string>
+                    <string>weborama.com</string>
+                    <string>widespace.com</string>
+                    <string>youappi.com</string>
+                    <!-- Mobile Attribution & Analytics -->
                     <string>app-measurement.com</string>
                     <string>app.link</string>
                     <string>adjust.com</string>
@@ -104,6 +279,42 @@
                     <string>flurry.com</string>
                     <string>onesignal.com</string>
                     <string>gameanalytics.com</string>
+                    <string>kochava.com</string>
+                    <string>singular.net</string>
+                    <string>tenjin.io</string>
+                    <string>apptentive.com</string>
+                    <string>apptimize.com</string>
+                    <string>localytics.com</string>
+                    <string>urbanairship.com</string>
+                    <string>airship.com</string>
+                    <string>pushwoosh.com</string>
+                    <string>swrve.com</string>
+                    <string>batch.com</string>
+                    <string>iterable.com</string>
+                    <string>hotjar.com</string>
+                    <string>optimizely.com</string>
+                    <string>vwo.com</string>
+                    <string>fullstory.com</string>
+                    <string>mouseflow.com</string>
+                    <string>luckyorange.com</string>
+                    <string>smartlook.com</string>
+                    <string>crazyegg.com</string>
+                    <string>clicktale.net</string>
+                    <string>chartbeat.com</string>
+                    <string>chartbeat.net</string>
+                    <string>comscore.com</string>
+                    <string>imrworldwide.com</string>
+                    <string>kissmetrics.com</string>
+                    <string>heap.io</string>
+                    <string>heapanalytics.com</string>
+                    <string>woopra.com</string>
+                    <string>statcounter.com</string>
+                    <string>histats.com</string>
+                    <string>clicky.com</string>
+                    <string>2o7.net</string>
+                    <string>everesttech.net</string>
+                    <string>adobedtm.com</string>
+                    <string>clarity.ms</string>
                     <!-- Mobile Ad Networks -->
                     <string>unityads.unity3d.com</string>
                     <string>vungle.com</string>
@@ -121,110 +332,119 @@
                     <string>smaato.net</string>
                     <string>adcolony.com</string>
                     <string>ogury.co</string>
+                    <string>appodeal.com</string>
+                    <string>appnext.com</string>
+                    <string>adincube.com</string>
+                    <string>bidmachine.io</string>
+                    <string>display.io</string>
+                    <string>liftoff.io</string>
+                    <string>mintegral.com</string>
+                    <string>mobvista.com</string>
+                    <string>pubnative.net</string>
+                    <string>start.io</string>
+                    <string>yeahmobi.com</string>
+                    <string>zucks.net</string>
+                    <string>inner-active.com</string>
+                    <string>tapresearch.com</string>
+                    <!-- Social Trackers -->
+                    <string>ct.pinterest.com</string>
+                    <string>analytics.twitter.com</string>
+                    <string>static.ads-twitter.com</string>
+                    <string>ads-twitter.com</string>
+                    <string>analytics.tiktok.com</string>
+                    <string>ads.tiktok.com</string>
+                    <string>business-api.tiktok.com</string>
+                    <string>tr.snapchat.com</string>
+                    <string>sc-static.net</string>
+                    <string>ads.linkedin.com</string>
+                    <string>px.ads.linkedin.com</string>
+                    <string>snap.licdn.com</string>
+                    <string>alb.reddit.com</string>
+                    <string>addthis.com</string>
+                    <string>sharethis.com</string>
+                    <string>addtoany.com</string>
+                    <string>po.st</string>
+                    <!-- Chinese Ad Networks -->
+                    <string>umeng.com</string>
+                    <string>umeng.co</string>
+                    <string>cnzz.com</string>
+                    <string>tanx.com</string>
+                    <string>alimama.com</string>
+                    <string>gdt.qq.com</string>
+                    <string>e.qq.com</string>
+                    <string>pgdt.gtimg.cn</string>
+                    <string>pos.baidu.com</string>
+                    <string>cpro.baidu.com</string>
+                    <string>eclick.baidu.com</string>
+                    <string>cbjs.baidu.com</string>
+                    <string>hm.baidu.com</string>
+                    <string>pangle.io</string>
+                    <string>pangolin-sdk-toutiao.com</string>
+                    <string>snssdk.com</string>
+                    <!-- Aggressive / Popunder / Adult Networks -->
+                    <string>exoclick.com</string>
+                    <string>exosrv.com</string>
+                    <string>trafficjunky.net</string>
+                    <string>juicyads.com</string>
+                    <string>popads.net</string>
+                    <string>popcash.net</string>
+                    <string>propellerads.com</string>
+                    <string>propellerpops.com</string>
+                    <string>adsterra.com</string>
+                    <string>hilltopads.net</string>
+                    <string>clickadu.com</string>
+                    <string>onclckds.com</string>
+                    <string>adcash.com</string>
+                    <string>mgid.com</string>
                 </array>
             </dict>
 
+            <!-- Keep the carrier tunnel alive -->
+            <key>OnDemandEnabled</key>
+            <integer>1</integer>
             <key>OnDemandRules</key>
             <array>
                 <dict>
+                    <key>Action</key>
+                    <string>Connect</string>
                     <key>InterfaceTypeMatch</key>
                     <string>WiFi</string>
-                    <key>Action</key>
-                    <string>Connect</string>
                 </dict>
                 <dict>
+                    <key>Action</key>
+                    <string>Connect</string>
                     <key>InterfaceTypeMatch</key>
                     <string>Cellular</string>
-                    <key>Action</key>
-                    <string>Connect</string>
-                </dict>
-                <dict>
-                    <key>Action</key>
-                    <string>Connect</string>
                 </dict>
             </array>
-
-            <key>PayloadDisplayName</key>
-            <string>VPN-Proof CR + Ad Sinkhole</string>
-            <key>PayloadIdentifier</key>
-            <string>com.apple.dnsSettings.managed.A1B2C3D4-0003-0003-0003-000000000001</string>
-            <key>PayloadOrganization</key>
-            <string>Nexus - Mobile Configuration</string>
-            <key>PayloadType</key>
-            <string>com.apple.dnsSettings.managed</string>
-            <key>PayloadUUID</key>
-            <string>A1B2C3D4-0003-0003-0003-000000000001</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
-        </dict>
-
-        <!-- Payload 2: Default Cloudflare DNS (for all other traffic, may be overridden by VPN) -->
-        <dict>
-            <key>DNSSettings</key>
-            <dict>
-                <key>DNSProtocol</key>
-                <string>HTTPS</string>
-                <key>ServerURL</key>
-                <string>https://1.1.1.1/dns-query</string>
-            </dict>
-
-            <key>OnDemandRules</key>
-            <array>
-                <dict>
-                    <key>InterfaceTypeMatch</key>
-                    <string>WiFi</string>
-                    <key>Action</key>
-                    <string>Connect</string>
-                </dict>
-                <dict>
-                    <key>InterfaceTypeMatch</key>
-                    <string>Cellular</string>
-                    <key>Action</key>
-                    <string>Connect</string>
-                </dict>
-                <dict>
-                    <key>Action</key>
-                    <string>Connect</string>
-                </dict>
-            </array>
-
-            <key>PayloadDisplayName</key>
-            <string>Cloudflare DNS (Fallback)</string>
-            <key>PayloadIdentifier</key>
-            <string>com.apple.dnsSettings.managed.A1B2C3D4-0003-0003-0003-000000000002</string>
-            <key>PayloadOrganization</key>
-            <string>Nexus - Mobile Configuration</string>
-            <key>PayloadType</key>
-            <string>com.apple.dnsSettings.managed</string>
-            <key>PayloadUUID</key>
-            <string>A1B2C3D4-0003-0003-0003-000000000002</string>
-            <key>PayloadVersion</key>
-            <integer>1</integer>
         </dict>
     </array>
 
     <key>PayloadDescription</key>
     <string>
-        Profile 4: Certificate Revoke + Ad Blocker (VPN-Proof)
+        Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient)
 
-        • Certificate Revocation Protection: Blocks all known Apple OCSP/CRL/certificate validation servers (same comprehensive list as Profile 1).
-        • Ad &amp; Tracker Blocking: Blocks 60+ major ad, tracking, and mobile attribution domains.
-        • VPN-Proof: Both certificate revocation and ad-blocking domains are forced through the DoH sinkhole via SupplementalMatchDomains, bypassing any VPN DNS settings. These protections work even when a VPN is active.
-        • Default DNS: All other domains use Cloudflare (1.1.1.1) — this may be overridden by your VPN, but sensitive blocking remains intact.
+        • Certificate Revocation Protection: Blocks all known Apple OCSP/CRL/certificate validation servers.
+        • Ad &amp; Tracker Blocking: Blocks 300+ major ad, tracking, and mobile attribution domains.
+        • VPN-Resilient Architecture: Uses a split‑tunnel VPN carrier with NEDNSSettings. Only the listed domains are forced to a blackhole resolver (192.0.2.1 / 192.0.2.2). All other DNS traffic is handled normally by the system or an active VPN.
 
-        ⚠️ Disabling certificate revocation checks is a security risk. Ad blocking may affect app/website functionality. Use at your own risk.
+        ⚠️ This profile is designed to remain effective against many standard on‑demand VPNs, but it may not work if:
+        - An Always‑On VPN is installed (iOS will terminate this payload).
+        - The user’s VPN forces a full‑tunnel default route and ignores split‑DNS settings.
+
+        ⚠️ Disabling certificate revocation checks is a significant security risk. Ad blocking may affect app/website functionality. Use at your own risk.
     </string>
 
     <key>PayloadDisplayName</key>
-    <string>CR + Ad Blocker (VPN-Proof)</string>
+    <string>CR + Ad Blocker (VPN-Resilient)</string>
     <key>PayloadIdentifier</key>
-    <string>com.nexus.config.cr-adblock-vpnproof</string>
+    <string>com.nexus.config.cr-adblock-vpnresilient</string>
     <key>PayloadOrganization</key>
     <string>Nexus - Mobile Configuration</string>
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>B2C3D4E5-0003-0003-0003-000000000001</string>
+    <string>B2C3D4E5-0004-0004-0004-000000000001</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
 
