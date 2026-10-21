@@ -8,62 +8,44 @@
         <string>
             Profile 3: Certificate Revoke Blocker (VPN-Resilient)
 
-            This profile attempts to block certificate revocation checks even when a VPN is active by using a split-DNS VPN payload. It forces only the OCSP/CRL domains through a non-functional DNS server, while all other traffic is handled normally.
+            This profile blocks certificate revocation checks even when a VPN is active by using a DNS Proxy payload. It forces only the OCSP/CRL domains through a non-functional DNS server, while all other traffic is handled normally.
 
-            • Uses VPN On-Demand with Split DNS (NEDNSSettings).
-            • Works against on-demand VPNs and standard third-party VPNs.
-            • May NOT work if an Always-On VPN is installed or if the VPN is a full-tunnel that ignores split-DNS settings.
+            • Uses DNS Proxy to avoid the VPN status bar glitch (Wi-Fi icon stays visible).
+            • No Shared Secret prompt required.
+            • Works against standard third-party VPNs.
+            • May NOT work if an Always-On VPN is installed.
 
             ⚠️ Warning: Blocking certificate revocation checks prevents your device from detecting revoked or compromised certificates. This is a security risk. Use at your own risk.
 
-            DNS Mobile Configuration By: Nexus Signer
+            DNS Mobile Configuration By: Wen Zhang
         </string>
     </dict>
 
     <key>PayloadContent</key>
     <array>
-        <!-- VPN Payload with Split DNS (NEDNSSettings) -->
+        <!-- DNS Proxy Payload -->
         <dict>
             <key>PayloadType</key>
-            <string>com.apple.vpn.managed</string>
+            <string>com.apple.dnsProxy.managed</string>
             <key>PayloadIdentifier</key>
-            <string>com.nexus.vpn.crblocker.A1B2C3D4-0004-0004-0004-000000000001</string>
+            <string>com.nexus.dnsproxy.crblocker.A1B2C3D4-0004-0004-0004-000000000001</string>
             <key>PayloadUUID</key>
             <string>A1B2C3D4-0004-0004-0004-000000000001</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadDisplayName</key>
-            <string>VPN-Resilient CR Blocker</string>
+            <string>VPN-Resilient CR Blocker (DNS Proxy)</string>
 
-            <!-- VPN Sub-Type: IKEv2 is used as a harmless carrier -->
-            <key>VPNSubType</key>
-            <string>com.apple.ikev2</string>
-            <key>VPNType</key>
-            <string>IKEv2</string>
-
-            <!-- IKEv2 Connection Settings (Placeholder - does not need to connect) -->
-            <key>IKEv2</key>
+            <key>AppBundleIdentifier</key>
+            <string>com.apple.Preferences</string>
+            <key>ProviderBundleIdentifier</key>
+            <string>com.apple.Preferences</string>
+            
+            <key>ProviderConfiguration</key>
             <dict>
-                <key>RemoteAddress</key>
-                <string>127.0.0.1</string>
-                <key>LocalIdentifier</key>
-                <string>nexus-cr-blocker</string>
-                <key>RemoteIdentifier</key>
-                <string>nexus-cr-blocker</string>
-                <key>AuthenticationMethod</key>
-                <string>None</string>
-            </dict>
-
-            <!-- Split DNS: Capture ONLY the revocation domains -->
-            <key>DNS</key>
-            <dict>
-                <key>ServerAddresses</key>
-                <array>
-                    <!-- Blackhole DNS: resolves to nothing -->
-                    <string>192.0.2.1</string>
-                    <string>192.0.2.2</string>
-                </array>
-                <key>SupplementalMatchDomains</key>
+                <key>ServerURL</key>
+                <string>https://localhost.direct</string>
+                <key>BlockedDomains</key>
                 <array>
                     <!-- Apple OCSP -->
                     <string>ocsp.apple.com</string>
@@ -95,9 +77,6 @@
                 </array>
             </dict>
 
-            <!-- On-Demand Rules: Keep the VPN carrier alive -->
-            <key>OnDemandEnabled</key>
-            <integer>1</integer>
             <key>OnDemandRules</key>
             <array>
                 <dict>
@@ -120,17 +99,10 @@
     <string>
         Profile 3: Certificate Revoke Blocker (VPN-Resilient)
 
-        This profile uses a VPN payload with Split DNS (NEDNSSettings) to attempt to force revocation queries to a blackhole DNS server. It is designed to be more resilient against VPN DNS overrides than a standalone DNS Proxy.
+        Uses a DNS Proxy payload to force the listed OCSP/CRL domains through a blackhole DNS. All other DNS traffic is handled normally. This method avoids the VPN status bar glitch that can hide the Wi-Fi icon and requires no password.
 
-        • Uses a non-routing IKEv2 VPN as a carrier for the DNS settings.
-        • Only the listed OCSP/CRL domains are forced through the blackhole DNS.
-        • All other DNS traffic is handled normally by the system or an active VPN.
-
-        ⚠️ This profile may NOT work if:
-        - An Always-On VPN is installed (iOS will terminate this profile).
-        - The user's VPN is a full-tunnel that ignores split-DNS settings.
-
-        ⚠️ Disabling certificate revocation checks is a significant security risk. Use with caution.
+        ⚠️ This profile may NOT work if an Always-On VPN is installed.
+        ⚠️ Disabling certificate revocation checks is a significant security risk.
     </string>
 
     <key>PayloadDisplayName</key>
