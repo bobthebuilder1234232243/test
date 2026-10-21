@@ -8,6 +8,10 @@
         <string>
             ⚠️ WARNING: STATUS BAR GLITCH ⚠️
 
+
+            ❗ NOTE: IF ASK FOR USERNAME THEN JUST ENTER ANYTHING ❗
+
+
             Profile 3: Certificate Revoke Blocker (VPN-Resilient)
 
             This profile uses a dummy VPN tunnel to enforce split-DNS blocking. This allows it to bypass other VPNs and block certificate revocation checks.
