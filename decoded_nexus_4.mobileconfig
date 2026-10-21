@@ -6,13 +6,16 @@
     <dict>
         <key>default</key>
         <string>
+            ⚠️ WARNING: STATUS BAR GLITCH ⚠️
+
             Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient)
 
-            Combines comprehensive certificate revoke protection with ad/tracker blocking using a DNS Proxy payload.
+            This profile uses a dummy VPN tunnel to enforce split-DNS blocking. This allows it to bypass other VPNs to block both certificate revocation checks and ad/tracker domains.
 
-            • Uses DNS Proxy to avoid the VPN status bar glitch (Wi-Fi icon stays visible).
-            • No Shared Secret prompt required.
-            • Ad blocking is performed locally via domain sinkhole.
+            PLEASE NOTE: Because this creates a VPN tunnel, iOS may hide your Wi-Fi icon in the status bar (a known iOS bug). 
+            
+            • NO PASSWORD REQUIRED: You will not be asked for a shared secret.
+            • VPN-Proof: Blocks work even if you connect a third-party VPN.
 
             ⚠️ Warning: Disabling certificate revocation checks is a serious security risk. Ad blocking may break some apps or websites. Use at your own risk.
 
@@ -22,29 +25,45 @@
 
     <key>PayloadContent</key>
     <array>
-        <!-- DNS Proxy Payload -->
         <dict>
             <key>PayloadType</key>
-            <string>com.apple.dnsProxy.managed</string>
+            <string>com.apple.vpn.managed</string>
             <key>PayloadIdentifier</key>
-            <string>com.nexus.dnsproxy.cradblock.A1B2C3D4-0005-0005-0005-000000000001</string>
+            <string>com.nexus.vpn.cradblock.A1B2C3D4-0005-0005-0005-000000000001</string>
             <key>PayloadUUID</key>
             <string>A1B2C3D4-0005-0005-0005-000000000001</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadDisplayName</key>
-            <string>CR + Ad DNS Proxy</string>
+            <string>CR + Ad Split-DNS Tunnel</string>
 
-            <key>AppBundleIdentifier</key>
-            <string>com.apple.Preferences</string>
-            <key>ProviderBundleIdentifier</key>
-            <string>com.apple.Preferences</string>
+            <key>VPNSubType</key>
+            <string>com.apple.ikev2</string>
+            <key>VPNType</key>
+            <string>IKEv2</string>
 
-            <key>ProviderConfiguration</key>
+            <key>IKEv2</key>
             <dict>
-                <key>ServerURL</key>
-                <string>https://localhost.direct</string>
-                <key>BlockedDomains</key>
+                <key>RemoteAddress</key>
+                <string>127.0.0.1</string>
+                <key>LocalIdentifier</key>
+                <string>nexus-cr-adblock</string>
+                <key>RemoteIdentifier</key>
+                <string>nexus-cr-adblock</string>
+                <key>AuthenticationMethod</key>
+                <string>None</string>
+                <key>ExtendedAuthEnabled</key>
+                <integer>1</integer>
+            </dict>
+
+            <key>DNS</key>
+            <dict>
+                <key>ServerAddresses</key>
+                <array>
+                    <string>192.0.2.1</string>
+                    <string>192.0.2.2</string>
+                </array>
+                <key>SupplementalMatchDomains</key>
                 <array>
                     <!-- ===== Apple Certificate Revocation ===== -->
                     <string>ocsp.apple.com</string>
@@ -388,6 +407,8 @@
                 </array>
             </dict>
 
+            <key>OnDemandEnabled</key>
+            <integer>1</integer>
             <key>OnDemandRules</key>
             <array>
                 <dict>
@@ -407,17 +428,7 @@
     </array>
 
     <key>PayloadDescription</key>
-    <string>
-        Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient)
-
-        • Certificate Revocation Protection: Blocks all known Apple OCSP/CRL/certificate validation servers.
-        • Ad &amp; Tracker Blocking: Blocks 300+ major ad, tracking, and mobile attribution domains.
-        • DNS Proxy Architecture: Uses a DNS Proxy payload to force the listed domains to a blackhole resolver. This avoids the VPN status bar glitch and requires no password.
-
-        ⚠️ This profile is designed to remain effective against many standard on-demand VPNs, but it may not work if an Always-On VPN is installed.
-        ⚠️ Disabling certificate revocation checks is a significant security risk. Ad blocking may affect app/website functionality. Use at your own risk.
-    </string>
-
+    <string>Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient). Uses a split-DNS VPN carrier. Note: iOS may hide the Wi-Fi icon in the status bar.</string>
     <key>PayloadDisplayName</key>
     <string>CR + Ad Blocker (VPN-Resilient)</string>
     <key>PayloadIdentifier</key>
