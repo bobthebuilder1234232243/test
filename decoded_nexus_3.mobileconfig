@@ -21,6 +21,7 @@
 
             • VPN-Proof: Blocks work even if you connect a third-party VPN.
             • MIGHT NOT WORK ON ALWAYS-ON VPN
+            • Certificate revoke protection (same comprehensive list as Profile 1)
 
             ⚠️ Warning: Disabling certificate revocation checks is a serious security risk. Use at your own risk.
 
