@@ -8,63 +8,45 @@
         <string>
             Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient)
 
-            Combines comprehensive certificate revoke protection with ad/tracker blocking. Both the revocation domains and the ad/tracker domains are forced through a split‑DNS tunnel, which is designed to remain active even when many third‑party VPNs are connected.
+            Combines comprehensive certificate revoke protection with ad/tracker blocking using a DNS Proxy payload.
 
-            • Uses a split‑tunnel VPN carrier with NEDNSSettings. Only the listed domains are sent to a blackhole resolver; all other DNS traffic is handled normally.
-            • Ad blocking is performed locally via domain sinkhole — no third‑party ad‑block DNS is used.
+            • Uses DNS Proxy to avoid the VPN status bar glitch (Wi-Fi icon stays visible).
+            • No Shared Secret prompt required.
+            • Ad blocking is performed locally via domain sinkhole.
 
             ⚠️ Warning: Disabling certificate revocation checks is a serious security risk. Ad blocking may break some apps or websites. Use at your own risk.
 
-            DNS Mobile Configuration By: Nexus Signer
+            DNS Mobile Configuration By: Wen Zhang
         </string>
     </dict>
 
     <key>PayloadContent</key>
     <array>
-        <!-- VPN Payload with Split DNS (NEDNSSettings) -->
+        <!-- DNS Proxy Payload -->
         <dict>
             <key>PayloadType</key>
-            <string>com.apple.vpn.managed</string>
+            <string>com.apple.dnsProxy.managed</string>
             <key>PayloadIdentifier</key>
-            <string>com.nexus.vpn.cradblock.A1B2C3D4-0004-0004-0004-000000000001</string>
+            <string>com.nexus.dnsproxy.cradblock.A1B2C3D4-0005-0005-0005-000000000001</string>
             <key>PayloadUUID</key>
-            <string>A1B2C3D4-0004-0004-0004-000000000001</string>
+            <string>A1B2C3D4-0005-0005-0005-000000000001</string>
             <key>PayloadVersion</key>
             <integer>1</integer>
             <key>PayloadDisplayName</key>
-            <string>CR + Ad Split‑DNS Tunnel</string>
+            <string>CR + Ad DNS Proxy</string>
 
-            <!-- IKEv2 is used as a harmless carrier for the DNS settings -->
-            <key>VPNSubType</key>
-            <string>com.apple.ikev2</string>
-            <key>VPNType</key>
-            <string>IKEv2</string>
+            <key>AppBundleIdentifier</key>
+            <string>com.apple.Preferences</string>
+            <key>ProviderBundleIdentifier</key>
+            <string>com.apple.Preferences</string>
 
-            <!-- Minimal IKEv2 settings (does not need to establish a real tunnel) -->
-            <key>IKEv2</key>
+            <key>ProviderConfiguration</key>
             <dict>
-                <key>RemoteAddress</key>
-                <string>127.0.0.1</string>
-                <key>LocalIdentifier</key>
-                <string>nexus-cr-adblock</string>
-                <key>RemoteIdentifier</key>
-                <string>nexus-cr-adblock</string>
-                <key>AuthenticationMethod</key>
-                <string>None</string>
-            </dict>
-
-            <!-- Split DNS: capture ONLY the revocation + ad/tracker domains -->
-            <key>DNS</key>
-            <dict>
-                <key>ServerAddresses</key>
+                <key>ServerURL</key>
+                <string>https://localhost.direct</string>
+                <key>BlockedDomains</key>
                 <array>
-                    <!-- Blackhole DNS (TEST-NET-1, guaranteed non-routable) -->
-                    <string>192.0.2.1</string>
-                    <string>192.0.2.2</string>
-                </array>
-                <key>SupplementalMatchDomains</key>
-                <array>
-                    <!-- ===== Apple Certificate Revocation (comprehensive) ===== -->
+                    <!-- ===== Apple Certificate Revocation ===== -->
                     <string>ocsp.apple.com</string>
                     <string>ocsp2.apple.com</string>
                     <string>ocsp-lb.apple.com</string>
@@ -88,8 +70,7 @@
                     <string>crl4.digicert.com</string>
                     <string>crl5.digicert.com</string>
 
-                    <!-- ===== Ad & Tracking Domains (VPN‑Resilient) ===== -->
-                    <!-- Google Ads & Analytics -->
+                    <!-- ===== Google Ads & Analytics ===== -->
                     <string>doubleclick.net</string>
                     <string>googlesyndication.com</string>
                     <string>googleadservices.com</string>
@@ -104,17 +85,20 @@
                     <string>fundingchoicesmessages.google.com</string>
                     <string>pagead-googlehosted.l.google.com</string>
                     <string>app-analytics-services.com</string>
-                    <!-- Facebook Tracking -->
+                    
+                    <!-- ===== Facebook Tracking ===== -->
                     <string>pixel.facebook.com</string>
                     <string>an.facebook.com</string>
                     <string>sb.facebook.com</string>
                     <string>connect.facebook.net</string>
-                    <!-- Amazon Ads -->
+                    
+                    <!-- ===== Amazon Ads ===== -->
                     <string>amazon-adsystem.com</string>
                     <string>aax-us-east.amazon-adsystem.com</string>
                     <string>aax.amazon-adsystem.com</string>
                     <string>assoc-amazon.com</string>
-                    <!-- Major Ad Exchanges & SSPs -->
+                    
+                    <!-- ===== Major Ad Exchanges & SSPs ===== -->
                     <string>adnxs.com</string>
                     <string>adsrvr.org</string>
                     <string>criteo.com</string>
@@ -260,7 +244,8 @@
                     <string>weborama.com</string>
                     <string>widespace.com</string>
                     <string>youappi.com</string>
-                    <!-- Mobile Attribution & Analytics -->
+                    
+                    <!-- ===== Mobile Attribution & Analytics ===== -->
                     <string>app-measurement.com</string>
                     <string>app.link</string>
                     <string>adjust.com</string>
@@ -315,7 +300,8 @@
                     <string>everesttech.net</string>
                     <string>adobedtm.com</string>
                     <string>clarity.ms</string>
-                    <!-- Mobile Ad Networks -->
+                    
+                    <!-- ===== Mobile Ad Networks ===== -->
                     <string>unityads.unity3d.com</string>
                     <string>vungle.com</string>
                     <string>chartboost.com</string>
@@ -346,7 +332,8 @@
                     <string>zucks.net</string>
                     <string>inner-active.com</string>
                     <string>tapresearch.com</string>
-                    <!-- Social Trackers -->
+                    
+                    <!-- ===== Social Trackers ===== -->
                     <string>ct.pinterest.com</string>
                     <string>analytics.twitter.com</string>
                     <string>static.ads-twitter.com</string>
@@ -364,7 +351,8 @@
                     <string>sharethis.com</string>
                     <string>addtoany.com</string>
                     <string>po.st</string>
-                    <!-- Chinese Ad Networks -->
+                    
+                    <!-- ===== Chinese Ad Networks ===== -->
                     <string>umeng.com</string>
                     <string>umeng.co</string>
                     <string>cnzz.com</string>
@@ -381,7 +369,8 @@
                     <string>pangle.io</string>
                     <string>pangolin-sdk-toutiao.com</string>
                     <string>snssdk.com</string>
-                    <!-- Aggressive / Popunder / Adult Networks -->
+                    
+                    <!-- ===== Aggressive / Popunder / Adult Networks ===== -->
                     <string>exoclick.com</string>
                     <string>exosrv.com</string>
                     <string>trafficjunky.net</string>
@@ -399,9 +388,6 @@
                 </array>
             </dict>
 
-            <!-- Keep the carrier tunnel alive -->
-            <key>OnDemandEnabled</key>
-            <integer>1</integer>
             <key>OnDemandRules</key>
             <array>
                 <dict>
@@ -426,12 +412,9 @@
 
         • Certificate Revocation Protection: Blocks all known Apple OCSP/CRL/certificate validation servers.
         • Ad &amp; Tracker Blocking: Blocks 300+ major ad, tracking, and mobile attribution domains.
-        • VPN-Resilient Architecture: Uses a split‑tunnel VPN carrier with NEDNSSettings. Only the listed domains are forced to a blackhole resolver (192.0.2.1 / 192.0.2.2). All other DNS traffic is handled normally by the system or an active VPN.
+        • DNS Proxy Architecture: Uses a DNS Proxy payload to force the listed domains to a blackhole resolver. This avoids the VPN status bar glitch and requires no password.
 
-        ⚠️ This profile is designed to remain effective against many standard on‑demand VPNs, but it may not work if:
-        - An Always‑On VPN is installed (iOS will terminate this payload).
-        - The user’s VPN forces a full‑tunnel default route and ignores split‑DNS settings.
-
+        ⚠️ This profile is designed to remain effective against many standard on-demand VPNs, but it may not work if an Always-On VPN is installed.
         ⚠️ Disabling certificate revocation checks is a significant security risk. Ad blocking may affect app/website functionality. Use at your own risk.
     </string>
 
@@ -444,7 +427,7 @@
     <key>PayloadType</key>
     <string>Configuration</string>
     <key>PayloadUUID</key>
-    <string>B2C3D4E5-0004-0004-0004-000000000001</string>
+    <string>B2C3D4E5-0005-0005-0005-000000000001</string>
     <key>PayloadVersion</key>
     <integer>1</integer>
 
