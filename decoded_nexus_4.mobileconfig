@@ -12,16 +12,22 @@
             ❗ NOTE: IF IT ASKS FOR USERNAME AND/OR PASSWORD THEN JUST ENTER ANYTHING ❗
 
 
-            Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient)
+            Profile 3: Certificate Revoke Blocker (VPN-Resilient)
 
-            This profile uses a dummy VPN tunnel to enforce split-DNS blocking. This allows it to bypass other VPNs to block both certificate revocation checks and ad/tracker domains.
+            This profile uses a dummy VPN tunnel to enforce split-DNS blocking. This allows it to bypass other VPNs and block certificate revocation checks.
 
-            PLEASE NOTE: Because this creates a VPN tunnel, iOS may hide your Wi-Fi icon in the status bar (a known iOS bug). 
-            
-            • NO PASSWORD REQUIRED: You will not be asked for a shared secret.
+            PLEASE NOTE: Because this creates a VPN tunnel, iOS may hide your Wi-Fi icon in the status bar (a known iOS bug).
+      
+
+            Blocks all known Apple certificate revocation servers AND a curated list of major ad/tracking domains. All other DNS traffic resolves through Cloudflare (1.1.1.1) for speed and privacy.
+
+
+            • Ad &amp; tracker blocking via local sinkhole (no third-party ad-block DNS)
             • VPN-Proof: Blocks work even if you connect a third-party VPN.
+            • Certificate revoke protection (same comprehensive list as Profile 1)
+            • MIGHT NOT WORK ON ALWAYS-ON VPN
 
-            ⚠️ Warning: Disabling certificate revocation checks is a serious security risk. Ad blocking may break some apps or websites. Use at your own risk.
+            ⚠️ Warning: Disabling certificate revocation checks is a serious security risk. Use at your own risk.
 
             DNS Mobile Configuration By: Nexus Signer
         </string>
@@ -432,7 +438,7 @@
     </array>
 
     <key>PayloadDescription</key>
-    <string>Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient). Uses a split-DNS VPN carrier. Note: iOS may hide the Wi-Fi icon in the status bar.</string>
+    <string>Profile 4: Certificate Revoke + Ad Blocker (VPN-Resilient). Blocks 300+ ad services and uses a split-DNS VPN carrier. Note: iOS may hide the Wi-Fi icon in the status bar.</string>
     <key>PayloadDisplayName</key>
     <string>CR + Ad Blocker (VPN-Resilient)</string>
     <key>PayloadIdentifier</key>
